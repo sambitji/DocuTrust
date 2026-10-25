@@ -1,0 +1,10 @@
+# Verified working against Python 3.14 / Windows. Versions match the
+# environment the demo was validated in (backend/pipeline_selftest.py +
+# backend/live_http_test.py green).
+fastapi==0.135.2
+uvicorn==0.43.0
+pydantic==2.12.5
+PyMuPDF==2.0
+reportlab==5.1.0
+python-dotenv==1.2.2
+httpx==0.28.1

@@ -1,0 +1,111 @@
+{
+  "generated_at": "2026-10-25T19:59:04.921691+00:00",
+  "variants": {
+    "clean": {
+      "docs": {
+        "part1": {
+          "filename": "part1.pdf",
+          "path": "data\\synthetic\\clean\\part1.pdf",
+          "bytes": 4519,
+          "sha256": "6ba2d97f1714d824d24c5dc3e842c7d9df9d3bc93e638a3b2099c70cec521637"
+        },
+        "land": {
+          "filename": "land.pdf",
+          "path": "data\\synthetic\\clean\\land.pdf",
+          "bytes": 3341,
+          "sha256": "f6a659cd4ea67862e2406e98d5cdd7aa2a70b5ed3e694e11005694406ffe63f9"
+        },
+        "faculty": {
+          "filename": "faculty.pdf",
+          "path": "data\\synthetic\\clean\\faculty.pdf",
+          "bytes": 3546,
+          "sha256": "37541a6a9516caf4e1b5e76f8b86be388fcbcabfe057b9ff725c99a91f4ced67"
+        }
+      },
+      "mutations": []
+    },
+    "forged": {
+      "docs": {
+        "part1": {
+          "filename": "part1.pdf",
+          "path": "data\\synthetic\\forged\\part1.pdf",
+          "bytes": 4524,
+          "sha256": "fd687f877bd7f328790d6bffe7b93dc528361ca7ec90b77ca84ec3bbda85c23b"
+        },
+        "land": {
+          "filename": "land.pdf",
+          "path": "data\\synthetic\\forged\\land.pdf",
+          "bytes": 3873,
+          "sha256": "d10481b2a0f701bc9b55c2b79f3bff4a77520f2308af15e25c99ced68d576a52"
+        },
+        "faculty": {
+          "filename": "faculty.pdf",
+          "path": "data\\synthetic\\forged\\faculty.pdf",
+          "bytes": 3547,
+          "sha256": "5c81b98cf1710d35f9628841787744a088972b3276ab41a1114be5bac0436f78"
+        }
+      },
+      "mutations": [
+        {
+          "id": "M1_name",
+          "doc": "land",
+          "field": "land_institution_name",
+          "value": "Sri Venkateshwara Institute of Technology",
+          "why": "institution name deliberately misspelled in the deed",
+          "expect": "CONS_NAME"
+        },
+        {
+          "id": "M2_land_area",
+          "doc": [
+            "part1",
+            "land"
+          ],
+          "field": "part1_land_area_sqm / land_plot_area_sqm",
+          "value": "3037",
+          "why": "land area altered down in both the form and the deed",
+          "expect": "RULE_LAND_AREA_MIN"
+        },
+        {
+          "id": "M3_intake",
+          "doc": "part1",
+          "field": "part1_total_intake",
+          "value": "960",
+          "why": "intake inflated without adding faculty",
+          "expect": "RULE_FACULTY_STUDENT_RATIO"
+        },
+        {
+          "id": "M4_principal",
+          "doc": "faculty",
+          "field": "faculty_principal_professor_years",
+          "value": "3",
+          "why": "principal professor-experience understated",
+          "expect": "RULE_PRINCIPAL"
+        },
+        {
+          "id": "M5_builtup",
+          "doc": "part1",
+          "field": "part1_builtup_area_sqm",
+          "value": "5200",
+          "why": "built-up area understated against intake",
+          "expect": "RULE_BUILTUP_AREA_PER_STUDENT"
+        },
+        {
+          "id": "M6_district",
+          "doc": "land",
+          "field": "land_district",
+          "value": "Rangareddy",
+          "why": "district differs between the form and the deed",
+          "expect": "CONS_DISTRICT"
+        },
+        {
+          "id": "M7_forensic",
+          "doc": "land",
+          "field": "(byte layout)",
+          "value": "producer='iText 7.1.17', ModDate 2024-03-15 >> deed date 2023-11-20, incremental xref",
+          "why": "deed edited long after its own registration date with a programmatic producer",
+          "expect": "FORENSIC_PROVENANCE_land"
+        }
+      ]
+    }
+  }
+}

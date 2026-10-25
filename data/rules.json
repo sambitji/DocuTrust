@@ -1,0 +1,63 @@
+[
+  {
+    "id": "RULE_LAND_AREA_MIN",
+    "name": "Minimum land area vs. location & program count",
+    "severity": "critical",
+    "applies_to": ["part1", "land"],
+    "clause": "APH 2024-27 — Appendix 4, Land Requirement Norms",
+    "quote": "Land requirement for Engineering & Technology institutions depends on the location class (Rural / Urban / Metro) and the number of programs being applied for.",
+    "source_url": "https://aicte-india.org/approval-process-handbook",
+    "verified": false,
+    "thresholds": {
+      "rural_sqm": 6070,
+      "metro_urban_sqm": 2023,
+      "additional_per_5_programs_sqm": 2023
+    },
+    "note": "Engine: floor(area_type) + additional_per_5 * max(0, ceil((program_count-5)/5)). Incremental per program bucket of 5."
+  },
+  {
+    "id": "RULE_FACULTY_STUDENT_RATIO",
+    "name": "Faculty-student ratio (UG 1:20)",
+    "severity": "critical",
+    "applies_to": ["part1", "faculty"],
+    "clause": "APH 2024-27 — Clause 5.2, Faculty:Student Ratio",
+    "quote": "For UG Engineering & Technology programs the faculty-to-student ratio shall be maintained at 1:20.",
+    "source_url": "https://aicte-india.org/approval-process-handbook",
+    "verified": false,
+    "thresholds": {
+      "ug_ratio": 20,
+      "pg_ratio": 15
+    },
+    "note": "Engine: total_faculty >= ceil(total_intake / ug_ratio)."
+  },
+  {
+    "id": "RULE_PRINCIPAL",
+    "name": "Principal appointment norms",
+    "severity": "critical",
+    "applies_to": ["faculty"],
+    "clause": "APH 2024-27 — Principal / Director appointment norms",
+    "quote": "The Principal/Director shall hold a Ph.D. with substantial total experience, including Professor-level service for a minimum period.",
+    "source_url": "https://aicte-india.org/approval-process-handbook",
+    "verified": false,
+    "thresholds": {
+      "requires_phd": true,
+      "min_total_experience_years": 15,
+      "min_professor_years": 5
+    },
+    "note": "Engine: Ph.D. required AND total_experience >= 15 AND professor-level >= 5; each failed component is reported separately."
+  },
+  {
+    "id": "RULE_BUILTUP_AREA_PER_STUDENT",
+    "name": "Built-up area per student (instructional)",
+    "severity": "warning",
+    "applies_to": ["part1"],
+    "clause": "APH 2024-27 — Appendix 4, Built-up Area Norms",
+    "quote": "Institutions shall maintain instructional built-up area of at least 10 sqm per sanctioned student.",
+    "source_url": "https://aicte-india.org/approval-process-handbook",
+    "verified": false,
+    "thresholds": {
+      "instructional_sqm_per_student": 10
+    },
+    "note": "Engine: builtup_area_sqm >= total_intake * 10. Administrative/amenities components deliberately excluded to keep the test single-purpose and explainable."
+  }
+]
